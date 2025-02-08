@@ -65,6 +65,17 @@
       font-size: 24px;
       font-weight: bold;
       color: #e63946;
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #key:hover {
+      background-color: #e63946;
+      color: white;
     }
   </style>
 </head>
@@ -72,9 +83,9 @@
   <div class="container">
     <h1>Faygoware Key System</h1>
     <p>Sub to get your key:</p>
-    <a id="link" href="https://www.youtube.com/@Faygoware?sub_confirmation=1" target="_blank" id="visit-link" onclick="generateKey();">Visit Faygoware YouTube Channel</a>
+    <a id="link" href="https://www.youtube.com/@Faygoware?sub_confirmation=1" target="_blank" onclick="generateKey();">Visit Faygoware YouTube Channel</a>
     <div id="key-container" class="hidden">
-      <p>Your key: <span id="key"></span></p>
+      <p>Your key: <span id="key" onclick="copyKey();"></span></p>
     </div>
   </div>
 
@@ -106,6 +117,19 @@
         result += chars[randomIndex];
       }
       return result;
+    }
+
+    function copyKey() {
+      // Create a temporary input element to copy the text to clipboard
+      const tempInput = document.createElement("input");
+      tempInput.value = keyElement.innerText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      // Optionally alert the user that the key was copied
+      alert("Key copied to clipboard!");
     }
   </script>
 </body>
