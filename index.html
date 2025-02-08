@@ -98,11 +98,6 @@
       keyElement.innerText = key;
       keyContainer.classList.remove("hidden");
 
-      // Pass key to Lua file link
-      const luaLink = document.getElementById("lua-link");
-      luaLink.href = "key.lua?key=" + encodeURIComponent(key);
-    }
-
     function generateKeyFromTime(time) {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
