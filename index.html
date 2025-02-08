@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Generator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #333;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #4CAF50;
+    }
+
+    a {
+      color: #4CAF50;
+      font-size: 18px;
+      text-decoration: none;
+      margin: 20px 0;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    a:hover {
+      background-color: #444;
+    }
+
+    #key-container {
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #time-remaining {
+      font-size: 18px;
+      font-weight: bold;
+      color: #FF5733;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Key Generator</h1>
+    <p>Click on the link to get your key:</p>
+    <a id="link" href="https://www.youtube.com/@Faygoware" target="_blank">Visit Faygoware YouTube Channel</a>
+    <div id="key-container" class="hidden">
+      <p>Your key: <span id="key"></span></p>
+      <p>Time remaining for this key: <span id="time-remaining"></span></p>
+    </div>
+  </div>
+
+  <script>
+    const keyLength = 10; // Length of the key
+    const refreshInterval = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+    let key = null;
+    let timerId = null;
+
+    const keyContainer = document.getElementById("key-container");
+    const timeRemainingElement = document.getElementById("time-remaining");
+    const keyElement = document.getElementById("key");
+    const linkElement = document.getElementById("link");
+
+    function generateKey() {
+      // Static Key (same for everyone)
+      if (!key) {
+        key = generateRandomKey();
+      }
+
+      keyElement.innerText = key;
+      startTimer();
+      keyContainer.classList.remove("hidden");
+    }
+
+    function generateRandomKey() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < keyLength; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        result += chars[randomIndex];
+      }
+      return result;
+    }
+
+    function startTimer() {
+      let timeLeft = refreshInterval / 1000; // in seconds
+
+      function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timeRemainingElement.innerText = `${minutes}m ${seconds}s`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          keyContainer.classList.add("hidden");
+          alert("Time's up! Please refresh the page and get a new key.");
+        } else {
+          timeLeft--;
+        }
+      }
+
+      updateTimer(); // initial call
+      timerId = setInterval(updateTimer, 1000); // update every second
+    }
+
+    linkElement.addEventListener("click", function(event) {
+      event.preventDefault();
+      generateKey();
+    });
+  </script>
+</body>
+</html>
