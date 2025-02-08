@@ -70,9 +70,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>Key Generator</h1>
-    <p>Click the link to get your key:</p>
-    <a id="link" href="https://www.youtube.com/@Faygoware" target="_blank" id="visit-link" onclick="generateKey();">Visit Faygoware YouTube Channel</a>
+    <h1>Faygoware Key System</h1>
+    <p>Sub to get your key:</p>
+    <a id="link" href="https://www.youtube.com/@Faygoware?sub_confirmation=1" target="_blank" id="visit-link" onclick="generateKey();">Visit Faygoware YouTube Channel</a>
     <div id="key-container" class="hidden">
       <p>Your key: <span id="key"></span></p>
     </div>
@@ -91,7 +91,7 @@
       linkElement.style.pointerEvents = "none"; // Make the button unclickable
 
       // Generate key based on current global time (every 5 minutes, key changes)
-      const globalTime = Math.floor(Date.now() / (5 * 60 * 1000)); // Get current global 5-min interval
+      const globalTime = Math.floor(Date.now() / (1 * 60 * 1000)); // Get current global 5-min interval
       const key = generateKeyFromTime(globalTime);
 
       keyElement.innerText = key;
